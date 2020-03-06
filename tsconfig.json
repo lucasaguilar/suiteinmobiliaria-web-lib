@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "suiteinmobiliaria-web-lib": [
+        "dist/suiteinmobiliaria-web-lib"
+      ],
+      "suiteinmobiliaria-web-lib/*": [
+        "dist/suiteinmobiliaria-web-lib/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
