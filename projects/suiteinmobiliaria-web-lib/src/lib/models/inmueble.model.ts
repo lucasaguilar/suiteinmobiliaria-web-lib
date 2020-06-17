@@ -13,5 +13,11 @@ export interface Inmueble {
     descripcion: string;
     superficie: string;
     parcela: string;
+    direccion: string;
+    localidad: string;
+    departamento: string;
+    provincia: string;
+    latitud: number;
+    longitud: number;
     indice?: number; // el signo de pregunta es para indicar que este atributo es opcional
   }

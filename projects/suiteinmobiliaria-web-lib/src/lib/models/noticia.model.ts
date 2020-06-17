@@ -4,6 +4,7 @@ import { ImagenNoticia } from './imagen-noticia.model';
 export interface Noticia {
 
     id: number;
+    tipoContenido: number;
     titulo: string; // nombre
     descripcion: string;
     publicado: number; // 1 si 0 no
@@ -19,7 +20,7 @@ export interface Noticia {
     seoKeywords: string;
     fechaLimite: Date;
     atributos: {
-        'contenido': string
+        'contenido': any
     };
 }
 

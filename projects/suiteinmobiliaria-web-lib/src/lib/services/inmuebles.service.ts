@@ -200,6 +200,19 @@ export class InmuebleService {
       const parcela = inmueblesRemotos[prop].inm_superficie;
       const indice = prop;
 
+      const direccion = inmueblesRemotos[prop].inm_direccion;
+      const localidad = inmueblesRemotos[prop].localidad_nombre;
+      const departamento = inmueblesRemotos[prop].departamento_nombre;
+      const provincia = inmueblesRemotos[prop].provincia_nombre;
+
+      const latitud = inmueblesRemotos[prop].inm_latitud === '' ||
+        inmueblesRemotos[prop].inm_latitud === null ?
+        0 : inmueblesRemotos[prop].inm_latitud;
+
+      const longitud = inmueblesRemotos[prop].inm_longitud === '' ||
+        inmueblesRemotos[prop].inm_longitud === null ?
+        0 : inmueblesRemotos[prop].inm_longitud;
+
       const inmuebleTemporal = {
         id: +id,
         titulo: titulo,
@@ -212,6 +225,12 @@ export class InmuebleService {
         descripcion: descripcion,
         superficie: superficie,
         parcela: parcela,
+        direccion: direccion,
+        localidad: localidad,
+        departamento: departamento,
+        provincia: provincia,
+        latitud: latitud,
+        longitud: longitud,
         indice: +id // @deprecated, ver este indice, creo que no es mas necesario???
       };
       this.inmuebles.push(inmuebleTemporal);
