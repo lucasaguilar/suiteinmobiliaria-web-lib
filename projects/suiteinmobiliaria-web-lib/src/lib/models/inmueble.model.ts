@@ -3,6 +3,7 @@ import { ImagenInmueble } from './imagen-inmueble.model';
 export interface Inmueble {
 
     id: number;
+    codigo: number;
     titulo: string;
     operacion: string;
     tipo: string;
@@ -19,5 +20,8 @@ export interface Inmueble {
     provincia: string;
     latitud: number;
     longitud: number;
+    dormitorios: number;
+    banios: number;
+    cocheras: number;
     indice?: number; // el signo de pregunta es para indicar que este atributo es opcional
   }

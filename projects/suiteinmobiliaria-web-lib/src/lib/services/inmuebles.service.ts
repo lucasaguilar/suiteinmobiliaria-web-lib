@@ -157,6 +157,7 @@ export class InmuebleService {
       */
 
       const id = inmueblesRemotos[prop].inm_id; // prop;
+      const codigo = inmueblesRemotos[prop].inm_cod; // codigo interno de la propiedad
       const titulo = inmueblesRemotos[prop].inm_direccion;
       const operacion = inmueblesRemotos[prop].ope_nombre;
       const tipo = inmueblesRemotos[prop].tipo_nombre;
@@ -213,8 +214,30 @@ export class InmuebleService {
         inmueblesRemotos[prop].inm_longitud === null ?
         0 : inmueblesRemotos[prop].inm_longitud;
 
+      const banios =
+        inmueblesRemotos[prop].inm_banios === 0 ||
+          inmueblesRemotos[prop].inm_banios === '0' ||
+          inmueblesRemotos[prop].inm_banios === null ||
+          inmueblesRemotos[prop].inm_banios === '' ?
+          '' : inmueblesRemotos[prop].inm_banios;
+
+      const dormitorios =
+        inmueblesRemotos[prop].inm_dormitorios === 0 ||
+          inmueblesRemotos[prop].inm_dormitorios === '0' ||
+          inmueblesRemotos[prop].inm_dormitorios === null ||
+          inmueblesRemotos[prop].inm_dormitorios === '' ?
+          '' : inmueblesRemotos[prop].inm_dormitorios;
+
+      const cocheras =
+        inmueblesRemotos[prop].inm_cocheras === 0 ||
+          inmueblesRemotos[prop].inm_cocheras === '0' ||
+          inmueblesRemotos[prop].inm_cocheras === '' ||
+          inmueblesRemotos[prop].inm_cocheras === null ?
+          '' : inmueblesRemotos[prop].inm_cocheras;
+
       const inmuebleTemporal = {
         id: +id,
+        codigo: codigo,
         titulo: titulo,
         operacion: operacion,
         tipo: tipo,
@@ -231,6 +254,9 @@ export class InmuebleService {
         provincia: provincia,
         latitud: latitud,
         longitud: longitud,
+        dormitorios: banios,
+        banios: dormitorios,
+        cocheras: cocheras,
         indice: +id // @deprecated, ver este indice, creo que no es mas necesario???
       };
       this.inmuebles.push(inmuebleTemporal);
