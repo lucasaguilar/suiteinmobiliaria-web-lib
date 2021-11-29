@@ -32,7 +32,7 @@ Library: SuiteinmobiliariaWebLib
 
 Librería desarrollada en Angular 8.x para obtener los datos públicos de las propiedades de una instancia de Suite Inmobiliaria. 
 
-Datos de configuración de la librería:
+- Datos de configuración de la librería:
 
 ~~~javascript
     @Inject('apiBaseUrl') apiBaseUrl: string,
@@ -46,17 +46,56 @@ Datos de configuración de la librería:
 Cargar la librería en su proyecto
 -------------------
 
-En la carpeta dist, tiene que estar el build de la librería para realizar el build
-de la app web. Por ejemplo:
+- En el archivo angular.json agregar las referencias al proyecto de la librería
+
+~~~json
+    "lib-web-suiteinmobiliaria": {
+      "projectType": "library",
+      "root": "projects/lib-web-suiteinmobiliaria",
+      "sourceRoot": "projects/lib-web-suiteinmobiliaria/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/lib-web-suiteinmobiliaria/tsconfig.lib.json",
+            "project": "projects/lib-web-suiteinmobiliaria/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lib-web-suiteinmobiliaria/src/test.ts",
+            "tsConfig": "projects/lib-web-suiteinmobiliaria/tsconfig.spec.json",
+            "karmaConfig": "projects/lib-web-suiteinmobiliaria/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/lib-web-suiteinmobiliaria/tsconfig.lib.json",
+              "projects/lib-web-suiteinmobiliaria/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }}
+~~~
+
+
+- En la carpeta dist de su proyecto angular, tiene que estar el build/paquete de la librería para realizar el build de la app web. Por ejemplo:
 
 dist/{carpetaBuildDeTuProyecto}
 dist/suiteinmobiliaria-web-lib (librería externa)
 
-
-Seteo de parámetros
+Seteo de parámetros dentro de tu aplicación
 -------------------
 
-En app.module.ts setear la información del archivo environment.nombreCliente por ejemplo:
+En app.module.ts de tu proyecto setear la información en un archivo environment.nombreCliente por ejemplo de la siguiente manera:
 
 ~~~ts
 providers: [
@@ -84,5 +123,7 @@ providers: [
 export class AppModule { }
 ~~~
 
+Esta librería se puede utilizar para integrarse a desarrollos de portales web inmobiliarios para conectarse a productos de suiteinmobiliaria.com con las credenciales correspondientes. Tambien se puede utilizar el modelo general de desarrollo de esta librería para un uso general si se modifica el origen de datos, parámetros, modelos de datos, para poder integrarlos a cualquier aplicación desarrollada en angular 8.x o superior.
 
-
+enjoy coding !!!
+---------------
