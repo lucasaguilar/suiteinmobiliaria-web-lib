@@ -19,7 +19,7 @@ export class InmuebleService {
   private apiKey;
   private urlInmuebles; // = 'https://www.suiteinmobiliaria.com/services/web/inmuebles?apikey=' + this.apiKey;
   private urlContacto; // = 'https://www.suiteinmobiliaria.com/services/web/contacto?apikey=' + this.apiKey;
-  private entidad; 
+  private entidad;
 
   constructor(
     private http: HttpClient,
@@ -146,6 +146,7 @@ export class InmuebleService {
     // tslint:disable-next-line:forin
     for (const prop in inmueblesRemotos) {
       const id = inmueblesRemotos[prop].inm_id; // prop;
+      const codigo = inmueblesRemotos[prop].inm_cod; // codigo interno de la propiedad
       const titulo = inmueblesRemotos[prop].inm_direccion;
       const operacion = inmueblesRemotos[prop].ope_nombre;
       const tipo = inmueblesRemotos[prop].tipo_nombre;
@@ -189,8 +190,43 @@ export class InmuebleService {
       const parcela = inmueblesRemotos[prop].inm_superficie;
       const indice = prop;
 
+      const direccion = inmueblesRemotos[prop].inm_direccion;
+      const localidad = inmueblesRemotos[prop].localidad_nombre;
+      const departamento = inmueblesRemotos[prop].departamento_nombre;
+      const provincia = inmueblesRemotos[prop].provincia_nombre;
+
+      const latitud = inmueblesRemotos[prop].inm_latitud === '' ||
+        inmueblesRemotos[prop].inm_latitud === null ?
+        0 : inmueblesRemotos[prop].inm_latitud;
+
+      const longitud = inmueblesRemotos[prop].inm_longitud === '' ||
+        inmueblesRemotos[prop].inm_longitud === null ?
+        0 : inmueblesRemotos[prop].inm_longitud;
+
+      const banios =
+        inmueblesRemotos[prop].inm_banios === 0 ||
+          inmueblesRemotos[prop].inm_banios === '0' ||
+          inmueblesRemotos[prop].inm_banios === null ||
+          inmueblesRemotos[prop].inm_banios === '' ?
+          '' : inmueblesRemotos[prop].inm_banios;
+
+      const dormitorios =
+        inmueblesRemotos[prop].inm_dormitorios === 0 ||
+          inmueblesRemotos[prop].inm_dormitorios === '0' ||
+          inmueblesRemotos[prop].inm_dormitorios === null ||
+          inmueblesRemotos[prop].inm_dormitorios === '' ?
+          '' : inmueblesRemotos[prop].inm_dormitorios;
+
+      const cocheras =
+        inmueblesRemotos[prop].inm_cocheras === 0 ||
+          inmueblesRemotos[prop].inm_cocheras === '0' ||
+          inmueblesRemotos[prop].inm_cocheras === '' ||
+          inmueblesRemotos[prop].inm_cocheras === null ?
+          '' : inmueblesRemotos[prop].inm_cocheras;
+
       const inmuebleTemporal = {
         id: +id,
+        codigo: codigo,
         titulo: titulo,
         operacion: operacion,
         tipo: tipo,
@@ -201,7 +237,16 @@ export class InmuebleService {
         descripcion: descripcion,
         superficie: superficie,
         parcela: parcela,
-        indice: +id // @deprecated
+        direccion: direccion,
+        localidad: localidad,
+        departamento: departamento,
+        provincia: provincia,
+        latitud: latitud,
+        longitud: longitud,
+        dormitorios: banios,
+        banios: dormitorios,
+        cocheras: cocheras,
+        indice: +id // @deprecated, ver este indice, creo que no es mas necesario???
       };
       this.inmuebles.push(inmuebleTemporal);
     }
@@ -217,7 +262,7 @@ export class InmuebleService {
       return JSON.parse(sessionStorage.getItem('inmuebles' + this.entidad));
     } else {
       // @todo manejar exeption si falla la llamada http
-      return this.getInmueblesRemotos(); //.subscribe((data: any) => {
+      return this.getInmueblesRemotos(); // .subscribe((data: any) => {
       // this.guardarStorage(data);
       // });
     }
