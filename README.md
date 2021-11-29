@@ -25,3 +25,64 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+Library: SuiteinmobiliariaWebLib
+=======
+
+Librería desarrollada en Angular 8.x para obtener los datos públicos de las propiedades de una instancia de Suite Inmobiliaria. 
+
+Datos de configuración de la librería:
+
+~~~javascript
+    @Inject('apiBaseUrl') apiBaseUrl: string,
+    @Inject('apiKey') apiKey: string,
+    @Inject('entidad') entidad: number,
+    @Inject('apiInmuebles') apiInmuebles: string,
+    @Inject('apiContacto') apiContacto: string,
+    @Inject('hashForStorageNoticias') 
+~~~
+
+Cargar la librería en su proyecto
+-------------------
+
+En la carpeta dist, tiene que estar el build de la librería para realizar el build
+de la app web. Por ejemplo:
+
+dist/{carpetaBuildDeTuProyecto}
+dist/suiteinmobiliaria-web-lib (librería externa)
+
+
+Seteo de parámetros
+-------------------
+
+En app.module.ts setear la información del archivo environment.nombreCliente por ejemplo:
+
+~~~ts
+providers: [
+    {
+      provide: 'apiBaseUrl', useValue: environment.apiBaseUrl
+    },
+    {
+      provide: 'apiKey', useValue: environment.apiKey
+    },
+    {
+      provide: 'entidad', useValue: environment.entidad
+    },
+    {
+      provide: 'hashForStorageNoticias', useValue: environment.hashForStorageNoticias
+    },
+    {
+      provide: 'apiContacto', useValue: environment.apiContacto
+    },
+    {
+      provide: 'apiInmuebles', useValue: environment.apiInmuebles
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+~~~
+
+
+

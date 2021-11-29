@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { retry, catchError } from 'rxjs/operators';
@@ -17,10 +16,10 @@ export class InmuebleService {
 
   private inmuebles: Inmueble[] = [];
   private inmueblesRemotos: any;
-  private apiKey; // = 'OTHMSgTSEhMLcWGQ';
+  private apiKey;
   private urlInmuebles; // = 'https://www.suiteinmobiliaria.com/services/web/inmuebles?apikey=' + this.apiKey;
   private urlContacto; // = 'https://www.suiteinmobiliaria.com/services/web/contacto?apikey=' + this.apiKey;
-  private entidad; // = 1;
+  private entidad; 
 
   constructor(
     private http: HttpClient,
@@ -146,16 +145,6 @@ export class InmuebleService {
     // mapeo los datos remotos
     // tslint:disable-next-line:forin
     for (const prop in inmueblesRemotos) {
-
-      // @todo luego quitar este limite porque es solo para mostrar menos propiedades en la maqueta      
-      /*
-      if (limite <= 11) {
-        limite++;
-      } else {
-        break;
-      }
-      */
-
       const id = inmueblesRemotos[prop].inm_id; // prop;
       const titulo = inmueblesRemotos[prop].inm_direccion;
       const operacion = inmueblesRemotos[prop].ope_nombre;
@@ -205,28 +194,20 @@ export class InmuebleService {
         titulo: titulo,
         operacion: operacion,
         tipo: tipo,
-        ubicacion: '', // @todo es un array con latitud y longitud
+        ubicacion: '', // array con latitud y longitud
         img: img,
         precio: precio,
         moneda: moneda,
         descripcion: descripcion,
         superficie: superficie,
         parcela: parcela,
-        indice: +id // @deprecated, ver este indice, creo que no es mas necesario???
+        indice: +id // @deprecated
       };
       this.inmuebles.push(inmuebleTemporal);
     }
   }
 
-  /*
-    guardarStorage() {
-      // antes de guardar en el storage lo paso a string al array de objetos
-      sessionStorage.setItem('inmuebles', JSON.stringify(this.inmueblesRemotos));
-    }
-  */
-
   guardarStorage(data: any) {
-    // antes de guardar en el storage lo paso a string al array de objetos
     sessionStorage.setItem('inmuebles' + this.entidad, JSON.stringify(data));
   }
 
